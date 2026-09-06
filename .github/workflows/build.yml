@@ -1,0 +1,16 @@
+name: Build APK
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - run: pip install flet
+      - run: flet build apk --project "MyApp" --company "MyCompany"
+      - uses: actions/upload-artifact@v3
+        with:
+          name: app-release
+          path: build/apk/*.apk
